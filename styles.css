@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #ffcccb;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  color: #333;
+}
+
+.book-showcase {
+  padding: 20px;
+}
+
+.book-showcase h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.book-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+}
+
+.book-card h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+}
+
+.book-card p {
+  margin: 0 0 10px;
+  color: #555;
+}

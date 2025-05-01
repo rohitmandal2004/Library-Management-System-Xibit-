@@ -1,0 +1,242 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #f3f3f3;
+}
+
+header.dark-mode {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+header img {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card.dark-mode {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+}
+
+input.dark-mode,
+button.dark-mode {
+  background-color: #333;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+button {
+    padding: 8px 16px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+button.dark-mode:hover {
+  background-color: #444;
+}
+
+#chatbox {
+    display: flex;
+    flex-direction: column;
+}
+
+#chatLog {
+    background: #eee;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    background: #eee;
+    margin-top: 30px;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.book-grid li {
+    text-align: center;
+}
+
+.book-grid img {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.book-grid p {
+    font-size: 14px;
+    color: #333;
+}
+
+.discover-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f3f4f6, #e9ecef);
+    border-top: 2px solid #ddd;
+}
+
+.discover-section h2 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.discover-section .discover-intro {
+    font-size: 1.3em;
+    color: #555;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.discover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.discover-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.discover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.discover-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+.discover-card h3 {
+    font-size: 1.6em;
+    margin: 20px 0 10px;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.discover-card p {
+    font-size: 1em;
+    color: #666;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.discover-card button {
+    padding: 12px 25px;
+    font-size: 1em;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.discover-card button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.header-actions button {
+    padding: 5px 10px; /* Reduced padding */
+    font-size: 0.9em; /* Smaller font size */
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-actions button:hover {
+    background-color: #0056b3;
+}
+
+.author-list {
+  list-style: disc; /* Add bullet points */
+  padding-left: 20px; /* Indent the list */
+  text-align: center; /* Center the content */
+}
+
+.author-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the image and text */
+  margin-bottom: 20px; /* Add spacing between items */
+}
+
+.author-list img {
+  width: 80px; /* Adjust image size */
+  height: 80px;
+  border-radius: 50%; /* Make the image circular */
+  margin-bottom: 10px; /* Add spacing between image and text */
+}
+
+.author-list p {
+  margin: 0;
+  font-size: 1em;
+  color: #333;
+}

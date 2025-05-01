@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📚 Professional Library Manager</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* Add smooth animations */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    button {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background-color: #007BFF;
+      color: white;
+      transform: translateY(-2px);
+    }
+    .header-actions {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .menu {
+      position: relative;
+    }
+    #menuButton {
+      font-size: 1.5em;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .menu-dropdown {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      z-index: 1000;
+    }
+    .menu-dropdown input {
+      width: 200px;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .menu-dropdown button {
+      padding: 8px 16px;
+      font-size: 1em;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .menu-dropdown button:hover {
+      background-color: #0056b3;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 3em; /* Make the title large */
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #FFD700; /* Attractive gold color */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
+    }
+
+    .hero-subtitle {
+      font-size: 1.5em; /* Slightly smaller subtitle */
+      margin-bottom: 30px;
+      color: #FFFFFF; /* White color for contrast */
+    }
+
+    .hero button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background: #FFD700; /* Gold button */
+      color: #0056b3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .hero button:hover {
+      background-color: #FFC107; /* Slightly lighter gold on hover */
+      transform: translateY(-3px);
+    }
+
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif; /* Modern and clean font */
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e4d8f0, #d6c8e8); /* Slightly darker lavender gradient */
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #d6c8e8, #cbb8e0); /* Darker lavender gradient */
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header img {
+      max-width: 150px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 10px 0;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    header h2 {
+      font-size: 1.5em;
+      margin: 5px 0;
+    }
+
+    header p {
+      font-size: 1em;
+      margin: 10px 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #d6c8e8, #cbb8e0); /* Darker lavender gradient */
+      color: white;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 90%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-title {
+      font-size: 3.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #FFD700; /* Gold color */
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-subtitle {
+      font-size: 1.8em;
+      margin-bottom: 30px;
+      color: #FFFFFF;
+    }
+
+    .hero button {
+      padding: 12px 25px;
+      font-size: 1.2em;
+      background: #FFD700;
+      color: #4B0082; /* Indigo text */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .hero button:hover {
+      background-color: #FFC107;
+      transform: translateY(-3px);
+    }
+
+    /* Discover Section */
+    .discover-section {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #f3f3f3, #e4d8f0); /* Subtle lavender gradient */
+      border-top: 2px solid #ddd;
+    }
+
+    .discover-section h2 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      color: #4B0082; /* Indigo text */
+      font-weight: bold;
+    }
+
+    .discover-section .discover-intro {
+      font-size: 1.3em;
+      color: #555;
+      margin-bottom: 40px;
+      line-height: 1.8;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .discover-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .discover-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .discover-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .discover-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .discover-card h3 {
+      font-size: 1.6em;
+      margin: 20px 0 10px;
+      color: #4B0082; /* Indigo text */
+      font-weight: bold;
+    }
+
+    .discover-card p {
+      font-size: 1em;
+      color: #666;
+      padding: 0 15px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .discover-card button {
+      padding: 12px 25px;
+      font-size: 1em;
+      background: #d6c8e8; /* Darker lavender button */
+      color: #4B0082; /* Indigo text */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .discover-card button:hover {
+      background-color: #cbb8e0; /* Slightly darker lavender */
+      transform: scale(1.05);
+    }
+
+    /* Author List */
+    .author-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .author-list li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .author-list img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%; /* Perfectly round images */
+      margin-bottom: 10px;
+      border: 2px solid #d6c8e8; /* Darker lavender border */
+    }
+
+    .author-list p {
+      font-size: 1em;
+      color: #4B0082; /* Indigo text */
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #4B0082; /* Indigo background */
+      color: white;
+      font-size: 0.9em;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://www.brainwareuniversity.ac.in/images/bwu-logo.svg" alt="Brainware University Logo" />
+    <h1>📚 Brainware University</h1>
+    <h2>Library Management System</h2>
+    <p>Track, lend, reserve, and discover books with smart suggestions.</p>
+    <div class="header-actions">
+      <div class="menu">
+        <button id="menuButton" onclick="toggleMenu()">⋮</button>
+        <div id="menuDropdown" class="menu-dropdown" style="display: none;">
+          <input type="text" id="searchInput" placeholder="Search books, authors..." />
+          <button onclick="searchLibrary()">Search</button>
+        </div>
+      </div>
+      <button id="darkModeToggle" onclick="toggleDarkMode()">Enable Dark Mode</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">Welcome to the Library</h1>
+      <p class="hero-subtitle">Explore a world of knowledge and imagination.</p>
+      <button onclick="scrollToSection()">Discover More</button>
+    </section>
+
+    <section class="discover-section">
+      <h2>🌟 Discover More</h2>
+      <p class="discover-intro">
+        Welcome to Brainware University, where knowledge meets innovation. Our library is a gateway to a world of literature, creativity, and inspiration. Explore our curated sections to uncover the magic of books, meet renowned authors, and dive into genres you'll love.
+      </p>
+      <div class="discover-grid">
+        <div class="discover-card">
+                    <h3>📚 Explore Books</h3>
+          <p>Browse a curated collection of books across various genres and categories.</p>
+          <button onclick="showBooks()">Explore Now</button>
+          <div id="bookList" style="display: none; margin-top: 20px;">
+            <!-- Books will be dynamically added here -->
+          </div>
+        </div>
+        <div class="discover-card">
+          
+          <h3>👩‍💻 Meet the Authors</h3>
+          <p>Learn about the brilliant minds behind your favorite books and stories.</p>
+          <ul class="author-list">
+            <li>
+              <img src="https://m.media-amazon.com/images/S/amzn-author-media-prod/8cigckin175jtpsk3gs361r4ss.jpg" alt="J.K. Rowling" />
+              <p>J.K. Rowling</p>
+            </li>
+            <li>
+              <img src="https://i.pinimg.com/originals/fa/84/da/fa84da00eb9cf1f0a1bceba90461b515.jpg" alt="George Orwell" />
+              <p>George Orwell</p>
+            </li>
+            <li>
+              <img src="https://in2english.net/wp-content/uploads/2019/01/Jane_Austen2-800x600.jpg" alt="Jane Austen" />
+              <p>Jane Austen</p>
+            </li>
+            <li>
+              <img src="https://www.almanac.com/sites/default/files/images/marktwain.jpeg" alt="Mark Twain" />
+              <p>Mark Twain</p>
+            </li>
+            <li>
+              <img src="https://cdn.britannica.com/48/134948-050-10E316E2/Rabindranath-Tagore.jpg" alt="Rabindranath Tagore" />
+              <p>Rabindranath Tagore</p>
+            </li>
+          </ul>
+          <button onclick="scrollToSection()">Meet Authors</button>
+        </div>
+        <div class="discover-card">
+          <img src="images/discover_genres.jpg" alt="Discover Genres" />
+          <h3>🎨 Genres to Love</h3>
+          <p>Find books in genres you love or explore new ones to expand your horizons.</p>
+          <button onclick="scrollToSection()">Discover Genres</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid-container">
+      <section class="card tracker">
+        <h2>📘 Book Tracking</h2>
+        <input type="text" id="bookInput" placeholder="Enter book title" />
+        <button onclick="checkBookAvailability()">Check Availability</button>
+        <p id="availabilityResult"></p>
+      </section>
+
+      <section class="card lending">
+        <h2>📤 Digital Lending</h2>
+        <input type="text" id="lendInput" placeholder="Book to lend" />
+        <button onclick="lendBook()">Lend</button>
+        <ul id="lentBooks"></ul>
+        <p id="reserveMessage"></p>
+      </section>
+
+      <section class="card overdue">
+        <h2>📅 Overdue Books</h2>
+        <button onclick="showOverdueBooks()">Show Overdue Books</button>
+        <ul id="overdueList"></ul>
+      </section>
+
+      <section class="card notifications">
+        <h2>⏰ Overdue Notification</h2>
+        <button onclick="sendOverdueNotification()">Simulate Notification</button>
+        <p id="notification"></p>
+      </section>
+
+      <section class="card book-list">
+        <h2>📖 Available Books</h2>
+        <ul id="availableBooks" class="book-grid">
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/TheGreatGatsby_1925jacket.jpeg" alt="The Great Gatsby" />
+            <p>The Great Gatsby</p>
+          </li>
+          <li>
+            <img src="images/1984.jpg" alt="1984" />
+            <p>1984</p>
+          </li>
+          <li>
+            <img src="images/to_kill_a_mockingbird.jpg" alt="To Kill a Mockingbird" />
+            <p>To Kill a Mockingbird</p>
+          </li>
+          <li>
+            <img src="images/catcher_in_the_rye.jpg" alt="The Catcher in the Rye" />
+            <p>The Catcher in the Rye</p>
+          </li>
+          <li>
+            <img src="images/brave_new_world.jpg" alt="Brave New World" />
+            <p>Brave New World</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="card versatile-recommendation">
+      <h2>🌍 Versatile Genre Recommendations</h2>
+      <input type="text" id="versatileGenreInput" placeholder="Enter a genre (e.g., romance, sci-fi)" />
+      <button onclick="recommendVersatileBook()">Show Recommendations</button>
+      <ul id="versatileRecommendList"></ul>
+    </section>
+
+    <section class="card mood-recommendation">
+      <h2>😊 Mood-Based Recommendation</h2>
+      <input type="text" id="moodInput" placeholder="Enter your mood (e.g., happy, sad)" />
+      <button onclick="recommendBasedOnMood()">Get Recommendation</button>
+      <p id="moodRecommendResult"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Brainware University. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function recommendBasedOnMood() {
+      const mood = document.getElementById('moodInput').value.toLowerCase();
+      const recommendations = {
+        happy: "The Alchemist by Paulo Coelho",
+        sad: "The Fault in Our Stars by John Green",
+        adventurous: "Into the Wild by Jon Krakauer",
+        relaxed: "Pride and Prejudice by Jane Austen",
+        curious: "Sapiens: A Brief History of Humankind by Yuval Noah Harari"
+      };
+
+      const result = recommendations[mood] || "Sorry, no recommendations available for this mood.";
+      document.getElementById('moodRecommendResult').textContent = result;
+    }
+
+    function checkBookAvailability() {
+      const bookInput = document.getElementById('bookInput').value.trim();
+      const availableBooks = [
+        "The Great Gatsby",
+        "1984",
+        "To Kill a Mockingbird",
+        "The Catcher in the Rye",
+        "Brave New World"
+      ];
+
+      const availabilityResult = document.getElementById('availabilityResult');
+
+      if (availableBooks.includes(bookInput)) {
+        availabilityResult.textContent = `"${bookInput}" is available in the library.`;
+        availabilityResult.style.color = "green";
+      } else {
+        // Generate a random future date for availability
+        const today = new Date();
+        const futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + Math.floor(Math.random() * 10) + 1); // Random date within 1-10 days
+        const formattedDate = futureDate.toLocaleDateString();
+
+        availabilityResult.textContent = `"${bookInput}" is not available. Expected availability: ${formattedDate}.`;
+        availabilityResult.style.color = "red";
+      }
+    }
+
+    function lendBook() {
+      const lendInput = document.getElementById('lendInput').value.trim();
+      const availableBooks = [
+        "The Great Gatsby",
+        "1984",
+        "To Kill a Mockingbird",
+        "The Catcher in the Rye",
+        "Brave New World"
+      ];
+
+      const lentBooks = document.getElementById('lentBooks');
+      const reserveMessage = document.getElementById('reserveMessage');
+
+      if (availableBooks.includes(lendInput)) {
+        const listItem = document.createElement('li');
+        listItem.textContent = lendInput;
+        lentBooks.appendChild(listItem);
+        reserveMessage.textContent = `"${lendInput}" has been successfully lent.`;
+        reserveMessage.style.color = "green";
+      } else {
+        // Generate a random future date for availability
+        const today = new Date();
+        const futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + Math.floor(Math.random() * 10) + 1); // Random date within 1-10 days
+        const formattedDate = futureDate.toLocaleDateString();
+
+        reserveMessage.textContent = `"${lendInput}" is not available. It will be available on ${formattedDate}. Click below to reserve it.`;
+        reserveMessage.style.color = "red";
+
+        // Add a "Reserve" button
+        const reserveButton = document.createElement('button');
+        reserveButton.textContent = "Reserve";
+        reserveButton.onclick = function () {
+          reserveMessage.textContent = `"${lendInput}" has been reserved. You will be notified when it becomes available on ${formattedDate}.`;
+          reserveMessage.style.color = "blue";
+          reserveButton.remove(); // Remove the button after reserving
+        };
+
+        // Append the button if it doesn't already exist
+        if (!document.getElementById('reserveButton')) {
+          reserveButton.id = "reserveButton";
+          reserveMessage.appendChild(reserveButton);
+        }
+      }
+    }
+
+    function showOverdueBooks() {
+      const overdueBooks = [
+        { book: "1984", student: "John Doe" },
+        { book: "To Kill a Mockingbird", student: "Jane Smith" },
+        { book: "The Catcher in the Rye", student: "Alice Johnson" }
+      ];
+
+      const overdueList = document.getElementById('overdueList');
+      overdueList.innerHTML = ""; // Clear the list before adding items
+
+      overdueBooks.forEach(entry => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${entry.book} - Borrowed by ${entry.student}`;
+        overdueList.appendChild(listItem);
+      });
+    }
+
+    function showBooks() {
+      const bookList = document.getElementById('bookList');
+      const books = [
+        "📖 The Great Gatsby",
+        "📖 1984",
+        "📖 To Kill a Mockingbird",
+        "📖 The Catcher in the Rye",
+        "📖 Brave New World",
+        "📖 Pride and Prejudice",
+        "📖 Moby Dick",
+        "📖 War and Peace",
+        "📖 The Hobbit",
+        "📖 Harry Potter and the Sorcerer's Stone",
+        "📖 The Lord of the Rings",
+        "📖 Crime and Punishment",
+        "📖 The Brothers Karamazov",
+        "📖 Anna Karenina",
+        "📖 The Picture of Dorian Gray",
+        "📖 Wuthering Heights",
+        "📖 Jane Eyre",
+        "📖 The Alchemist",
+        "📖 The Book Thief",
+        "📖 A Tale of Two Cities"
+      ];
+
+      // Clear the book list if it already exists
+      bookList.innerHTML = "";
+
+      // Add each book as a paragraph
+      books.forEach(book => {
+        const bookItem = document.createElement('p');
+        bookItem.textContent = book;
+        bookList.appendChild(bookItem);
+      });
+
+      // Show the book list
+      bookList.style.display = "block";
+    }
+
+    function toggleMenu() {
+      const menuDropdown = document.getElementById('menuDropdown');
+      if (menuDropdown.style.display === 'none' || menuDropdown.style.display === '') {
+        menuDropdown.style.display = 'block';
+      } else {
+        menuDropdown.style.display = 'none';
+      }
+    }
+
+    function searchLibrary() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const availableBooks = [
+        "The Great Gatsby",
+        "1984",
+        "To Kill a Mockingbird",
+        "The Catcher in the Rye",
+        "Brave New World"
+      ];
+
+      const authors = [
+        "J.K. Rowling",
+        "George Orwell",
+        "Jane Austen",
+        "Mark Twain",
+        "Rabindranath Tagore"
+      ];
+
+      let result = "No matches found.";
+      if (availableBooks.some(book => book.toLowerCase().includes(query))) {
+        result = `Book found: ${availableBooks.find(book => book.toLowerCase().includes(query))}`;
+      } else if (authors.some(author => author.toLowerCase().includes(query))) {
+        result = `Author found: ${authors.find(author => author.toLowerCase().includes(query))}`;
+      }
+
+      alert(result);
+    }
+  </script>
+</body>
+</html>
